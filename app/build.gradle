@@ -1,0 +1,114 @@
+plugins {
+    id 'com.android.application'
+    id 'com.google.firebase.appdistribution'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
+    id 'org.jlleitschuh.gradle.ktlint'
+    id 'org.jetbrains.kotlin.plugin.serialization' version '1.5.10'
+}
+
+apply from: 'versioning.gradle'
+apply from: 'signing.gradle'
+
+def verCode = getVersionCode()
+def verName = getVersionName()
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
+
+    defaultConfig {
+        applicationId "com.arthur.github"
+        minSdkVersion 24
+        targetSdkVersion 30
+        versionCode verCode
+        versionName verName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    flavorDimensions "environment"
+
+    productFlavors {
+        prod {
+            dimension "environment"
+            firebaseAppDistribution {
+                releaseNotes = "Github test firebaseAppDistribution"
+                serviceCredentialsFile = "$rootDir/app/android-github-project-dev.json"
+                groups = "cli-test-group"
+            }
+        }
+    }
+
+    buildFeatures {
+        dataBinding = true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+ktlint {
+    version("0.40.0")
+    android = true
+    disabledRules = ["final-newline"]
+    "com.arthur:android-lint-rules:1.0.+"
+}
+
+dependencies {
+    // Android Core Dependencies
+    implementation "androidx.core:core-ktx:1.6.0"
+    implementation "androidx.appcompat:appcompat:1.3.1"
+    implementation "com.google.android.material:material:1.4.0"
+    implementation 'androidx.lifecycle:lifecycle-common-java8:2.3.1'
+    testImplementation "junit:junit:4.13.2"
+    androidTestImplementation "androidx.test.ext:junit:1.1.3"
+    androidTestImplementation "androidx.test.espresso:espresso-core:3.4.0"
+
+    // Android Jetpack Components
+    implementation "androidx.fragment:fragment-ktx:1.3.6"
+    implementation "androidx.activity:activity-ktx:1.3.1"
+    implementation "androidx.recyclerview:recyclerview:1.2.1"
+    implementation "androidx.constraintlayout:constraintlayout:2.1.0"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.3.5"
+    implementation "androidx.navigation:navigation-ui-ktx:2.3.5"
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:2.3.5"
+    androidTestImplementation "androidx.navigation:navigation-testing:2.3.5"
+
+    // Hilt Dependency Injection
+    implementation "com.google.dagger:hilt-android:2.38.1"
+    kapt "com.google.dagger:hilt-android-compiler:2.38.1"
+    implementation 'androidx.hilt:hilt-navigation-fragment:1.0.0'
+
+    // Networking client
+    implementation("io.ktor:ktor-client-android:1.6.1")
+    implementation("io.ktor:ktor-client-serialization:1.6.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.1")
+    implementation("io.ktor:ktor-client-logging-jvm:1.6.1")
+
+    // Logging
+    implementation("com.jakewharton.timber:timber:4.7.1")
+
+    // Firebase
+    implementation platform('com.google.firebase:firebase-bom:26.2.0')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+}

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "666545194908",
+    "project_id": "github-arthur",
+    "storage_bucket": "github-arthur.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:666545194908:android:0f1627f1c9c8bf85486a59",
+        "android_client_info": {
+          "package_name": "com.arthur.github"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "666545194908-634vie48p87pct94cnck5cg738qauc6e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSiTyWkJKsIUTD9S7iWxxXQ_GgOznxTw0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "666545194908-634vie48p87pct94cnck5cg738qauc6e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

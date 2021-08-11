@@ -1,0 +1,18 @@
+def final staticVerCode = 1
+def final staticVerName = "1.0"
+
+ext.getVersionName = { ->
+    if (project.hasProperty("buildName")) {
+        return buildName
+    } else {
+        return staticVerName
+    }
+}
+
+ext.getVersionCode = { ->
+    if (project.hasProperty("buildNumber")) {
+        return buildNumber.toInteger()
+    } else {
+        return staticVerCode
+    }
+}
